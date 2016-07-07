@@ -142,6 +142,9 @@ static void * const kTLYShyNavBarManagerKVOContext = (void*)&kTLYShyNavBarManage
 
 - (void)setScrollView:(UIScrollView *)scrollView
 {
+    if (scrollView == _scrollView) {
+        return;
+    }
     [_scrollView removeObserver:self forKeyPath:@"contentSize" context:kTLYShyNavBarManagerKVOContext];
 
     if (_scrollView.delegate == self.delegateProxy)
