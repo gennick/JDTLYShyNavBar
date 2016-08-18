@@ -276,6 +276,22 @@ static void * const kTLYShyNavBarManagerKVOContext = (void*)&kTLYShyNavBarManage
         {
             deltaY = MAX(0, deltaY - self.previousYOffset + end);
         }
+        
+//        NSLog(@"qwe: %f", deltaY);
+        
+        // test
+        if (deltaY < 0 && self.navBarController.view.frame.origin.y == [UIApplication sharedApplication].statusBarFrame.size.height - self.navBarController.view.frame.size.height && self.extensionViewContainer.frame.origin.y == -10) {
+            self.previousYOffset = self.scrollView.contentOffset.y;
+            return;
+        }
+        if (deltaY > 0 && (self.navBarController.view.frame.origin.y == [UIApplication sharedApplication].statusBarFrame.size.height) && (self.extensionViewContainer.frame.origin.y == [UIApplication sharedApplication].statusBarFrame.size.height + self.navBarController.view.frame.size.height)) {
+            self.previousYOffset = self.scrollView.contentOffset.y;
+            return;
+        }
+        if (fabs(deltaY) > 50) {
+            self.previousYOffset = self.scrollView.contentOffset.y;
+            return;
+        }
 
         // 3 - Update contracting variable
         if (fabs(deltaY) > FLT_EPSILON)
